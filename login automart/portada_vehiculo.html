@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoMart - Portada con Carrito</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .cart-icon {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .vehicle-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .vehicle-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .vehicle-card img {
+    width: 100%;
+    max-height: 300px; /* Aumentamos ligeramente la altura máxima */
+    object-fit: scale-down; /* Asegura que la imagen se adapte sin recortarse */
+    border-bottom: 2px solid #ddd; /* Agrega un borde más definido */
+    margin: 0 auto; /* Centra la imagen en caso de que no ocupe todo el ancho */
+    display: block; /* Evita desalineaciones */
+    padding: 5px; /* Espaciado interno para mayor estética */
+    background-color: #f9f9f9; /* Fondo claro para destacar la imagen */
+    border-radius: 5px; /* Bordes ligeramente redondeados */
+}
+
+
+
+        .vehicle-details {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .vehicle-details h2 {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .vehicle-details p {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .vehicle-details .price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .vehicle-details button {
+            padding: 10px 15px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .vehicle-details button:hover {
+            background: #0056b3;
+        }
+
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+
+        .cart {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 300px;
+            height: 100%;
+            background: #fff;
+            box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .cart.open {
+            transform: translateX(0);
+        }
+
+        .cart-header {
+            padding: 20px;
+            background: #007bff;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .cart-items {
+            padding: 15px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-item p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .cart-item button {
+            background: red;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cart-footer {
+            padding: 15px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .cart-footer button {
+            padding: 10px 20px;
+            background: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .cart-footer button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Bienvenido a AutoMart
+        <span class="cart-icon" onclick="toggleCart()">🛒 Ver Carrito</span>
+    </header>
+    <div class="container">
+        <h1 style="text-align: center; margin-bottom: 30px;">Nuestros piezas</h1>
+        <div class="vehicle-grid">
+
+            <!-- Tarjeta de vehículo -->
+            <div class="vehicle-card">
+                <img src="c:\Users\shaqu\Downloads\A2701800109.1-1200x900.jpg" alt="Vehículo 1">
+                <div class="vehicle-details">
+                    <h2>Filtro de aceite</h2>
+                    <p>Filtro de aceite motor 270 Mercedes Benz.</p>
+                    <div class="price">$30</div>
+                    <button onclick="addToCart('Filtro de aceite', 30)">Comprar</button>
+                </div>
+            </div>
+
+            <!-- Tarjeta de vehículo -->
+            <div class="vehicle-card">
+                <img src="c:\Users\shaqu\Downloads\61unLtVUADL._AC_UF894,1000_QL80_.jpg" alt="Vehículo 2">
+                <div class="vehicle-details">
+                    <h2>Amortiguadores</h2>
+                    <p>Amortiguadores para Mercedes Benz.</p>
+                    <div class="price">$500</div>
+                    <button onclick="addToCart('Amortiguadores', 500)">Comprar</button>
+                </div>
+            </div>
+
+            <!-- Tarjeta de vehículo -->
+            <div class="vehicle-card">
+                <img src="c:\Users\shaqu\Downloads\h-preview.jpg" alt="Vehículo 3">
+                <div class="vehicle-details">
+                    <h2>Discos de frenos</h2>
+                    <p>Discos de frenos para Mercedes Benz</p>
+                    <div class="price">$115</div>
+                    <button onclick="addToCart('Discos de frenos', 115)">Comprar</button>
+                </div>
+            </div>
+            <!-- Tarjeta de vehículo -->
+            <div class="vehicle-card">
+                <img src="c:\Users\shaqu\Downloads\mercedes-benz-oil-mb-22951-5w30.jpg " alt="Vehículo 4">
+                <div class="vehicle-details">
+                    <h2>Mercedes Benz oil 5w-30</h2>
+                    <p>Aceite de motor para Mercedes Benz.</p>
+                    <div class="price">$15</div>
+                    <button onclick="addToCart('Mercedes Benz oil 5w-30', 15)">Comprar</button>
+                </div>
+            </div>
+
+            <!-- Tarjeta de vehículo 5 -->
+            <div class="vehicle-card">
+                <img src="c:\Users\shaqu\Downloads\d0eb36e9a8dcaf6f47778685102607f2.jpg" alt="Vehículo 5">
+                <div class="vehicle-details">
+                    <h2>Soporte de motor</h2>
+                    <p>Soporte de motor para GLE 450.</p>
+                    <div class="price">$200</div>
+                    <button onclick="addToCart('Soporte de motor', 200)">Comprar</button>
+                </div>
+            </div>
+            <!-- Tarjeta de vehículo 6 -->
+            <div class="vehicle-card">
+                <img src="c:\Users\shaqu\Downloads\340ef3497979693c9ca33d54064a6b95.jpg" alt="Vehículo 6">
+                <div class="vehicle-details">
+                    <h2>Sensor de frenos delanteros</h2>
+                    <p>Sensor de frenos delanteros para Mercedes Benz.</p>
+                    <div class="price">$5</div>
+                    <button onclick="addToCart('Sensor de freno', 5)">Comprar</button>
+                </div>
+            </div>
+        </div>
+
+
+    <div class="cart" id="cart">
+        <div class="cart-header">
+            Carrito de Compras
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p>El carrito está vacío.</p>
+        </div>
+        <div class="cart-footer">
+            <button onclick="checkout()">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <script>
+        const cart = [];
+        const cartElement = document.getElementById('cart');
+        const cartItemsElement = document.getElementById('cartItems');
+
+        function toggleCart() {
+            cartElement.classList.toggle('open');
+        }
+
+        function addToCart(vehicle, price) {
+            cart.push({ vehicle, price });
+            updateCart();
+            alert(`${vehicle} añadido al carrito.`);
+        }
+
+        function updateCart() {
+            cartItemsElement.innerHTML = '';
+            cart.forEach((item, index) => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <p>${item.vehicle} - $${item.price}</p>
+                    <button onclick="removeFromCart(${index})">Eliminar</button>
+                `;
+                cartItemsElement.appendChild(cartItem);
+            });
+            if (cart.length === 0) {
+                cartItemsElement.innerHTML = '<p>El carrito está vacío.</p>';
+            }
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('El carrito está vacío.');
+                return;
+            }
+            alert('Compra realizada con éxito.');
+            cart.length = 0;
+            updateCart();
+            toggleCart();
+        }
+    </script>
+</body>
+</html>
+
